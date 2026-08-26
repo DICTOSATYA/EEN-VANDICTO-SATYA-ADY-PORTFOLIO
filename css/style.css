@@ -775,6 +775,25 @@ body.lang-transition footer {
     padding-bottom: calc(68px + env(safe-area-inset-bottom));
   }
 
+  /* Ensure footer layout stacks into 1 full-width column on mobile */
+  .footer-main {
+    grid-template-columns: 1fr !important;
+    gap: 2.25rem !important;
+  }
+
+  .footer-brand {
+    grid-column: span 1 !important;
+  }
+
+  .footer-contact-link {
+    font-size: 0.85rem;
+    max-width: 100%;
+  }
+
+  .footer-bottom {
+    padding-bottom: calc(2rem + env(safe-area-inset-bottom));
+  }
+
   /* ---- Bottom Nav Bar ---- */
   .bottom-nav {
     display: flex;
@@ -1961,18 +1980,40 @@ footer {
   }
 
   /* Hero */
+  .hero {
+    min-height: auto;
+    padding-top: 5.5rem;
+    padding-bottom: 2.5rem;
+  }
+  .hero-label {
+    margin-bottom: 1rem;
+    padding: 0.25rem 0.85rem;
+    font-size: 0.7rem;
+  }
   .hero-heading {
-    font-size: clamp(2.25rem, 9vw, 3.5rem);
+    font-size: clamp(2rem, 8vw, 3rem);
+    margin-bottom: 1rem;
+    line-height: 1.1;
+  }
+  .hero-subheading {
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+    line-height: 1.55;
   }
   .hero-actions {
-    flex-direction: column;
-    align-items: stretch;
-    max-width: 280px;
-    margin-left: auto;
-    margin-right: auto;
+    flex-direction: row;
+    justify-content: center;
+    max-width: 100%;
+    margin-bottom: 1rem;
+    gap: 0.75rem;
   }
   .btn-primary, .btn-secondary {
+    padding: 0.65rem 1.25rem;
+    font-size: 0.85rem;
     justify-content: center;
+  }
+  .hero-scroll {
+    display: none;
   }
 
   /* About */
@@ -2189,6 +2230,17 @@ footer {
   transform: translateX(3px);
 }
 
+.footer-main > * {
+  min-width: 0;
+}
+
+.footer-contact,
+.footer-contact ul,
+.footer-contact li {
+  min-width: 0;
+  max-width: 100%;
+}
+
 .footer-contact-link {
   display: inline-flex;
   align-items: center;
@@ -2197,6 +2249,14 @@ footer {
   font-weight: 500;
   color: var(--text-secondary);
   transition: color var(--transition-fast);
+  max-width: 100%;
+  min-width: 0;
+}
+
+.footer-contact-text {
+  min-width: 0;
+  word-break: break-all;
+  overflow-wrap: anywhere;
 }
 
 .footer-contact-link:hover {
