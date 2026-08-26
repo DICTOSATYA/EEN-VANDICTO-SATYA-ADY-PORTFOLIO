@@ -1,21 +1,35 @@
-# MY-FIRST-WEBSITE-PORTOFOLIO-GUE-YANG-DIUPLOAD-DI-GITHUB
+# EEN-VANDICTO-SATYA-ADY-PORTFOLIO
 
-Website ini adalah project pertama gue dalam ngebangun portfolio pribadi. Tujuannya buat nunjukin skill dasar gue di dunia web development, sambil belajar cara deploy dan manage project lewat GitHub.
+Proyek ini merupakan pengembangan website portofolio pribadi berbasis web yang bertujuan untuk memberikan gambaran mengenai latar belakang, kompetensi, pengalaman, dan hasil proyek yang telah dikerjakan.
 
-A. Apa yang Ada di Website Ini?
-- Halaman profil yang ngejelasin siapa gue dan apa yang gue kerjain
-- Section portfolio berisi beberapa project awal gue (akan gue update terus kalo ada niat wkwkwk)
-- Tampilan clean & sederhana biar enak diliat, nggak terlalu rame
+Website dikembangkan dengan mengutamakan desain yang responsif, antarmuka yang sederhana, modern, dan mudah digunakan pada berbagai perangkat.
 
-B. Tujuan Dibuatnya Project Ini
-- Latihan bikin website statis dari nol
-- Mulai bangun personal branding sebagai mahasiswa Teknik/Sistem Komputer
-- Belajar pakai Git & GitHub buat version control
-- Nyoba upload project biar bisa dibaca orang lain + jadi portofolio beneran
+## Fitur
 
-C. Rencana Pengembangan Selanjutnya
-- Nyambungin ke domain custom kalau udah siap
-- Upgrade UI biar lebih modern dan responsif
-- Nambahin contoh project yang gue buat
+* Halaman profil pribadi
+* Informasi keterampilan dan kompetensi
+* Daftar pengalaman dan aktivitas
+* Galeri atau daftar proyek
+* Informasi kontak
+* Desain responsif untuk perangkat desktop maupun mobile
+* Animasi antarmuka untuk meningkatkan pengalaman pengguna
 
-Udah, itu doang. Thanks all 🙌🏼
+## Teknologi
+
+* HTML5
+* CSS3
+* JavaScript
+
+## Tujuan Pengembangan
+
+Website ini dikembangkan sebagai sarana untuk membangun personal branding, mendokumentasikan pengalaman dan proyek, serta menjadi media portofolio dalam bidang teknologi informasi.
+
+## Status Proyek
+
+**Status:** Aktif dalam pengembangan.
+
+Pengembangan akan dilakukan secara bertahap dengan penambahan fitur, peningkatan antarmuka, serta optimalisasi performa website.
+
+## Lisensi
+
+Proyek ini dibuat untuk keperluan portofolio pribadi.
