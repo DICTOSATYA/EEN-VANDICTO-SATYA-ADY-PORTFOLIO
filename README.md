@@ -1,4 +1,4 @@
-# EEN-VANDICTO-SATYA-ADY-PORTFOLIO
+# EEN VANDICTO SATYA ADY PORTFOLIO
 
 Proyek ini merupakan pengembangan website portofolio pribadi berbasis web yang bertujuan untuk memberikan gambaran mengenai latar belakang, kompetensi, pengalaman, dan hasil proyek yang telah dikerjakan.
 
