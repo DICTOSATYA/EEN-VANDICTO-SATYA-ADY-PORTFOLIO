@@ -12,7 +12,7 @@
   if (!loadingScreen) return;
 
   // ---- CONFIG ----
-  const MIN_MS = 7000; // hard minimum display time (ms)
+  const MIN_MS = 3800; // hard minimum display time (ms)
   const startTime = performance.now();
 
   // Prevent scroll while loading
@@ -72,6 +72,12 @@
   langDots.forEach((d, i)  => d.classList.toggle('active', i === 0));
 
   const langInterval = setInterval(() => {
+    // Stop after the last language — no loop
+    if (langIndex >= langItems.length - 1) {
+      clearInterval(langInterval);
+      return;
+    }
+
     const current = langItems[langIndex];
 
     // Slide current out upward
@@ -83,12 +89,12 @@
       current.classList.remove('leaving');
     }, 350); // match CSS transition duration
 
-    langIndex = (langIndex + 1) % langItems.length;
+    langIndex += 1;
 
     // Slide next in from below
     langItems[langIndex].classList.add('active');
     langDots[langIndex].classList.add('active');
-  }, 2000);
+  }, 1200);
 
   // ---- Bit Randomiser ----
   const bits = document.querySelectorAll('.bit');
@@ -151,6 +157,9 @@
       loadingScreen.classList.add('fade-out');
       document.body.classList.remove('is-loading');
 
+      // Start typewriter NOW — as fade begins, hero becomes visible
+      startHeroTypewriter();
+
       loadingScreen.addEventListener('transitionend', () => {
         cancelAnimationFrame(rainRAF);
         clearInterval(langInterval);
@@ -164,6 +173,63 @@
   setTimeout(dismissLoader, MIN_MS);
 
 }());
+
+
+
+// ============================================================
+// TYPEWRITER — Hero Name
+// =================================================
+function startHeroTypewriter() {
+  const nameEl = document.querySelector('.hero-heading .highlight');
+  if (!nameEl) return;
+
+  const fullText = nameEl.textContent.trim();
+  if (!fullText) return;
+
+  // ── Lock the element's width BEFORE clearing so heading doesn't shift ──
+  const naturalWidth = nameEl.getBoundingClientRect().width;
+  nameEl.style.display   = 'inline-block';
+  nameEl.style.minWidth  = naturalWidth + 'px';
+
+  // Create a standalone cursor span OUTSIDE .highlight
+  // (avoids interference from background-clip: text on the parent)
+  const cursor = document.createElement('span');
+  cursor.className = 'hero-cursor';
+  cursor.setAttribute('aria-hidden', 'true');
+  nameEl.insertAdjacentElement('afterend', cursor);
+
+  // Clear text — layout is held by minWidth above
+  nameEl.textContent = '';
+
+  let index = 0;
+
+  function typeNextChar() {
+    if (index < fullText.length) {
+      nameEl.textContent += fullText.charAt(index);
+      index++;
+
+      // Variable speed — slight pause on spaces and punctuation
+      const ch      = fullText.charAt(index - 1);
+      const isPause = ch === ' ' || ch === '.' || ch === ',';
+      const delay   = isPause
+        ? 90 + Math.random() * 40
+        : 55 + Math.random() * 30;
+
+      setTimeout(typeNextChar, delay);
+    } else {
+      // Typing done — release the locked width (text is full now)
+      nameEl.style.minWidth = '';
+      nameEl.style.display  = '';
+
+      // Blink cursor then hide (visibility:hidden keeps its space, no shift)
+      cursor.classList.add('typing-done');
+      setTimeout(() => { cursor.style.visibility = 'hidden'; }, 3800);
+    }
+  }
+
+  // Start immediately as loading fades
+  typeNextChar();
+}
 
 
 
@@ -363,3 +429,172 @@ if (heroSub) {
 // ---- CURRENT YEAR ----
 const yearEls = document.querySelectorAll('.js-year');
 yearEls.forEach(el => { el.textContent = new Date().getFullYear(); });
+
+
+
+// ============================================================
+// SAKURA PETAL — Navbar Hover Effect (desktop only)
+// ============================================================
+(function () {
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+  const NAV_TARGETS = document.querySelectorAll('.nav-link, .nav-cv-btn, .nav-cta');
+  const PETAL_COUNT = 5;
+  const SPREAD_X    = 0.9;
+
+  function rand(min, max) { return min + Math.random() * (max - min); }
+
+  function spawnPetals(link) {
+    const rect = link.getBoundingClientRect();
+    for (let i = 0; i < PETAL_COUNT; i++) {
+      const petal = document.createElement('div');
+      petal.className = 'sakura-petal';
+      petal.style.left = `${rect.left + rand(0, rect.width)}px`;
+      petal.style.top  = `${rect.top  + rand(0, rect.height * 0.6)}px`;
+      petal.style.setProperty('--petal-x',     `${rand(-rect.width * SPREAD_X, rect.width * SPREAD_X)}px`);
+      petal.style.setProperty('--petal-y',     `${rand(28, 52)}px`);
+      petal.style.setProperty('--petal-rot',   `${rand(0, 360)}deg`);
+      petal.style.setProperty('--petal-spin',  `${rand(120, 260) * (Math.random() > 0.5 ? 1 : -1)}deg`);
+      petal.style.setProperty('--petal-dur',   `${rand(0.75, 1.15)}s`);
+      petal.style.setProperty('--petal-delay', `${rand(0, 0.22)}s`);
+      document.body.appendChild(petal);
+      const dur = parseFloat(petal.style.getPropertyValue('--petal-dur'));
+      const del = parseFloat(petal.style.getPropertyValue('--petal-delay'));
+      setTimeout(() => petal.remove(), (dur + del) * 1000 + 100);
+    }
+  }
+
+  NAV_TARGETS.forEach(link => {
+    link.addEventListener('mouseenter', () => spawnPetals(link));
+  });
+}());
+
+
+
+// ============================================================
+// PARTICLE CONSTELLATION BACKGROUND
+// ============================================================
+(function () {
+  const canvas = document.getElementById('bgCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  // ---- Config ----
+  const CONFIG = {
+    baseCount  : 85,          // particles on desktop
+    mobileCount: 40,          // particles on small screens
+    minSpeed   : 0.18,
+    maxSpeed   : 0.42,
+    minRadius  : 1.2,
+    maxRadius  : 2.6,
+    linkDist   : 140,         // max px to draw a connecting line
+    linkWidth  : 0.7,
+    // Colors — matching portfolio blue theme
+    dotColor   : '96, 165, 250',   // blue-400
+    lineColor  : '59, 130, 246',   // blue-500
+    dotAlpha   : 0.75,
+    lineAlpha  : 0.18,
+  };
+
+  let W, H, particles, raf;
+
+  // ---- Particle class ----
+  function Particle() {
+    this.reset(true);
+  }
+
+  Particle.prototype.reset = function (init) {
+    this.x  = Math.random() * W;
+    this.y  = init ? Math.random() * H : (Math.random() > 0.5 ? -5 : H + 5);
+    const angle = Math.random() * Math.PI * 2;
+    const speed = CONFIG.minSpeed + Math.random() * (CONFIG.maxSpeed - CONFIG.minSpeed);
+    this.vx = Math.cos(angle) * speed;
+    this.vy = Math.sin(angle) * speed;
+    this.r  = CONFIG.minRadius + Math.random() * (CONFIG.maxRadius - CONFIG.minRadius);
+    this.alpha = 0.4 + Math.random() * 0.6;
+  };
+
+  Particle.prototype.update = function () {
+    this.x += this.vx;
+    this.y += this.vy;
+    // Soft-bounce off edges
+    if (this.x < 0)  { this.x = 0;  this.vx *= -1; }
+    if (this.x > W)  { this.x = W;  this.vx *= -1; }
+    if (this.y < 0)  { this.y = 0;  this.vy *= -1; }
+    if (this.y > H)  { this.y = H;  this.vy *= -1; }
+  };
+
+  // ---- Resize ----
+  function resize() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+    init();
+  }
+
+  // ---- Init particles ----
+  function init() {
+    const count = W < 768 ? CONFIG.mobileCount : CONFIG.baseCount;
+    particles = Array.from({ length: count }, () => new Particle());
+  }
+
+  // ---- Draw frame ----
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+
+    // Update positions
+    particles.forEach(p => p.update());
+
+    // Draw connecting lines first (behind dots)
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const a  = particles[i];
+        const b  = particles[j];
+        const dx = a.x - b.x;
+        const dy = a.y - b.y;
+        const d  = Math.sqrt(dx * dx + dy * dy);
+
+        if (d < CONFIG.linkDist) {
+          const alpha = CONFIG.lineAlpha * (1 - d / CONFIG.linkDist);
+          ctx.beginPath();
+          ctx.strokeStyle = `rgba(${CONFIG.lineColor}, ${alpha})`;
+          ctx.lineWidth   = CONFIG.linkWidth;
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    // Draw dots on top
+    particles.forEach(p => {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${CONFIG.dotColor}, ${p.alpha * CONFIG.dotAlpha})`;
+      ctx.fill();
+
+      // Soft glow
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r * 2.5, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${CONFIG.dotColor}, ${p.alpha * 0.08})`;
+      ctx.fill();
+    });
+
+    raf = requestAnimationFrame(draw);
+  }
+
+  // ---- Pause when tab hidden (save CPU) ----
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      cancelAnimationFrame(raf);
+    } else {
+      draw();
+    }
+  });
+
+  window.addEventListener('resize', resize, { passive: true });
+
+  // ---- Start ----
+  resize();
+  draw();
+}());
+

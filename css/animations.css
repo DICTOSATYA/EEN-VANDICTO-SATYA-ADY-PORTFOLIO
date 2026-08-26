@@ -220,3 +220,84 @@
     transform: none !important;
   }
 }
+
+/* ============================================
+   SAKURA PETAL — Navbar Hover Effect
+   ============================================ */
+
+/* Single petal element (spawned by JS) */
+.sakura-petal {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9990;
+  width: 7px;
+  height: 9px;
+  border-radius: 100% 0 100% 0;
+  background: linear-gradient(
+    135deg,
+    #ffd6e0 0%,
+    #ffb7c5 45%,
+    #ff9eb5 100%
+  );
+  opacity: 0;
+  will-change: transform, opacity;
+  animation: sakuraDrift var(--petal-dur, 0.9s) var(--petal-ease, ease-out) forwards;
+  animation-delay: var(--petal-delay, 0s);
+}
+
+@keyframes sakuraDrift {
+  0% {
+    opacity: 0;
+    transform:
+      translateY(0px)
+      translateX(0px)
+      rotate(var(--petal-rot, 0deg))
+      scale(1);
+  }
+  12% {
+    opacity: 0.85;
+  }
+  100% {
+    opacity: 0;
+    transform:
+      translateY(var(--petal-y, 36px))
+      translateX(var(--petal-x, 0px))
+      rotate(calc(var(--petal-rot, 0deg) + var(--petal-spin, 180deg)))
+      scale(0.4);
+  }
+}
+
+/* ============================================
+   TYPEWRITER — Hero Name Cursor
+   ============================================ */
+
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+@keyframes cursorFadeOut {
+  to { opacity: 0; }
+}
+
+/* Cursor span — sits AFTER .highlight, fully outside gradient clip */
+.hero-cursor {
+  display: inline-block;
+  margin-left: 3px;
+  color: #60a5fa;
+  font-weight: 300;
+  font-size: inherit;
+  line-height: inherit;
+  vertical-align: baseline;
+  animation: cursorBlink 0.55s step-end infinite;
+  user-select: none;
+}
+
+/* Typing done — blink 6×  then fade out */
+.hero-cursor.typing-done {
+  animation:
+    cursorBlink   0.55s step-end 6,
+    cursorFadeOut 0.5s  3.3s ease forwards;
+}
+
+

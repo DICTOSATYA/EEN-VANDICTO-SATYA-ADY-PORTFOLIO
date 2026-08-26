@@ -7,8 +7,7 @@
 
   <!-- ===== SEO META ===== -->
   <title>Een Vandicto Satya Ady Portofolio</title>
-  <meta name="description"
-    content="Portofolio personal Een Vandicto Satya Ady — mahasiswa Computer Systems dengan pengalaman di web development, graphic design, dan IT. Terbuka untuk peluang freelance." />
+  <meta name="description" content="Portofolio personal Een Vandicto Satya Ady" />
   <meta name="keywords"
     content="Een Vandicto Satya Ady, portfolio, computer systems, web developer, graphic design, IT, freelance" />
   <meta name="author" content="Een Vandicto Satya Ady" />
@@ -16,14 +15,14 @@
   <!-- ===== OPEN GRAPH ===== -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Een Vandicto Satya Ady Portofolio" />
-  <meta property="og:description"
-    content="Portofolio personal Een Vandicto Satya Ady — mahasiswa Computer Systems yang berfokus pada web development, graphic design, dan IT." />
+  <meta property="og:description" content="Portofolio personal Een Vandicto Satya Ady" />
   <meta property="og:url" content="https://eenvandicto.dev" />
   <meta property="og:site_name" content="Een Vandicto Satya Ady Portofolio" />
 
-  <!-- ===== FAVICON (SVG inline favicon) ===== -->
+  <!-- ===== FAVICON (circular profile photo) ===== -->
   <link rel="icon"
-    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%232563EB'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='Inter,sans-serif' font-size='16' font-weight='800' fill='white'>D</text></svg>" />
+    href="assets/images/favicon-circle.png"
+    type="image/png" />
 
   <!-- ===== STYLESHEETS ===== -->
   <link rel="stylesheet" href="css/style.css" />
@@ -31,6 +30,11 @@
 </head>
 
 <body>
+
+  <!-- ============================================================
+       PARTICLE CONSTELLATION BACKGROUND
+       ============================================================ -->
+  <canvas id="bgCanvas" aria-hidden="true"></canvas>
 
   <!-- ============================================================
        LOADING SCREEN
@@ -50,7 +54,7 @@
       <div class="loading-lang-wrap">
         <span class="loading-lang active" data-lang="en">Loading</span>
         <span class="loading-lang" data-lang="id">Memuat</span>
-        <span class="loading-lang" data-lang="jp">読み込み中<span class="loading-kana">(Yomikomi-chū)</span></span>
+        <span class="loading-lang" data-lang="jp">読み込み中</span>
       </div>
       <!-- Language dot indicators -->
       <div class="loading-lang-labels" aria-hidden="true">
@@ -148,51 +152,51 @@
        ============================================================ -->
   <nav class="bottom-nav" id="bottomNav" aria-label="Mobile bottom navigation">
     <a href="#home" class="bottom-nav-item active" data-section="home">
-      <svg class="bnav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-        <polyline points="9 22 9 12 15 12 15 22"/>
+      <svg class="bnav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+        <polyline points="9 22 9 12 15 12 15 22" />
       </svg>
       <span class="bnav-label" data-i18n="nav.home">Home</span>
     </a>
     <a href="#about" class="bottom-nav-item" data-section="about">
-      <svg class="bnav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <circle cx="12" cy="8" r="4"/>
-        <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+      <svg class="bnav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="8" r="4" />
+        <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
       </svg>
       <span class="bnav-label" data-i18n="nav.about">About</span>
     </a>
     <a href="#skills" class="bottom-nav-item" data-section="skills">
-      <svg class="bnav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <polyline points="16 18 22 12 16 6"/>
-        <polyline points="8 6 2 12 8 18"/>
+      <svg class="bnav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="16 18 22 12 16 6" />
+        <polyline points="8 6 2 12 8 18" />
       </svg>
       <span class="bnav-label" data-i18n="nav.skills">Skills</span>
     </a>
     <a href="#projects" class="bottom-nav-item" data-section="projects">
-      <svg class="bnav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <rect x="3" y="3" width="7" height="7" rx="1"/>
-        <rect x="14" y="3" width="7" height="7" rx="1"/>
-        <rect x="3" y="14" width="7" height="7" rx="1"/>
-        <rect x="14" y="14" width="7" height="7" rx="1"/>
+      <svg class="bnav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="3" y="3" width="7" height="7" rx="1" />
+        <rect x="14" y="3" width="7" height="7" rx="1" />
+        <rect x="3" y="14" width="7" height="7" rx="1" />
+        <rect x="14" y="14" width="7" height="7" rx="1" />
       </svg>
       <span class="bnav-label" data-i18n="nav.projects">Projects</span>
     </a>
     <a href="#experience" class="bottom-nav-item" data-section="experience">
-      <svg class="bnav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <rect x="2" y="7" width="20" height="14" rx="2"/>
-        <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
+      <svg class="bnav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="2" y="7" width="20" height="14" rx="2" />
+        <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
       </svg>
       <span class="bnav-label" data-i18n="nav.experience">Experience</span>
     </a>
     <a href="#contact" class="bottom-nav-item" data-section="contact">
-      <svg class="bnav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+      <svg class="bnav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
       </svg>
       <span class="bnav-label" data-i18n="nav.contact">Contact</span>
     </a>
@@ -260,10 +264,23 @@
           <!-- Left: text -->
           <div class="about-text" data-reveal="left">
             <span class="section-label" data-i18n="about.label">About Me</span>
-            <h2 class="section-title">
-              <span data-i18n="about.title">Passionate about</span><br />
-              <span class="text-blue" data-i18n="about.title2">tech &amp; design.</span>
-            </h2>
+            <div class="about-heading-row">
+              <h2 class="section-title">
+                <span data-i18n="about.title">Passionate about</span><br />
+                <span class="text-blue" data-i18n="about.title2">tech &amp; design.</span>
+              </h2>
+              <!-- Circular photo frame — replace src with your photo -->
+              <div class="about-photo-frame" aria-label="Profile photo">
+                <img src="assets/images/profil.jpg" alt="Een Vandicto Satya Ady" class="about-photo" id="aboutPhoto" />
+                <!-- Placeholder icon shown when no photo -->
+                <svg class="about-photo-placeholder" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"
+                  aria-hidden="true">
+                  <circle cx="12" cy="8" r="4" />
+                  <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
+                </svg>
+              </div>
+            </div>
             <p data-i18n="about.p1" data-i18n-html>
               I'm <strong>Een Vandicto Satya Ady</strong>, a Computer Systems / Computer Engineering
               student with a genuine curiosity for how technology shapes the world around us.
